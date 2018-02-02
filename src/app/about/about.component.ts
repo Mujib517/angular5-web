@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
 //expression(interpolation),property, event, class ,style, two waybinding
+//Directives ngClass,ngStyle,ngModel,ngIf,ngFor
 @Component({
   selector: 'app-about',
-  template: `<h1>About Page</h1>
-    <h1>{{1+2}}</h1>
-    <h1>{{"Sheldon"+" Cooper"}}</h1>
+  template: `<h4 [ngStyle]="styl" [ngClass]="cls">About Page</h4>
+   <h1 *ngIf="myProp2">This is heading</h1>
+   
+   <table border="1">
+    <tr >
+      <td>Value</td>
+      <td>Index</td>
+      <td>Even</td>
+      <td>Odd</td>
+      <td>First</td>
+      <td>Last</td>
+    </tr>
+    <tr *ngFor="let val of vals;let idx=index;let evn=even;let odd=odd;let fst=first;let lst=last">
+      <td>{{val}}</td>
+      <td>{{idx}}</td>
+      <td>{{evn}}</td>
+      <td>{{odd}}</td>
+      <td>{{fst}}</td>
+      <td>{{lst}}</td>
+  </tr>
+   </table>
 
-    
-
-    <h2>{{getValue()}}</h2>
-
-    <h3 [class.color]="myProperty">{{myProperty ? "Yes":"No"}}</h3>
-    
-    <h3 [style.border]="myProp2?'1px solid green':'none'">{{myProp2 ? "Yes":"No"}}</h3>
-
-    <button [disabled]="getValue()">Click</button>
-    <button (click)="onClick(10)">Click</button>
-    <input type="text" [value]="myProperty"/>
-
-    <h2>{{myProperty}}</h2>
-    <input type="text" [(ngModel)]="myProperty"/>
   `
 
 })
@@ -27,16 +32,16 @@ export class AboutComponent {
 
   myProperty: string = "Hello Angular";
   myProp2: boolean = false;
+  vals: number[] = [1, 2, 3, 3, 5];
+  cls = { color: true, bg: this.myProperty };  //ngClass=>string,array and object
+  styl = { border: '5px solid green', 'font-weight': 'bolder', 'font-size': '50px' };
+
 
   onClick(param) {
     console.log("Button clicked", param);
   }
 
-  //truthy
-  //falsy: 0 false "", undefined nulll Nan
-
   getValue(): string {
-    //simple.
     return "";
   }
 }
